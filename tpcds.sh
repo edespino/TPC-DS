@@ -229,12 +229,12 @@ repo_init()
 			chown $ADMIN_USER $INSTALL_DIR/$REPO
 			su -c "cd $INSTALL_DIR; GIT_SSL_NO_VERIFY=true; git clone --depth=1 $REPO_URL" $ADMIN_USER
 		fi
-	else
-		if [ "$internet_down" -eq "0" ]; then
-			git config --global user.email "$ADMIN_USER@$HOSTNAME"
-			git config --global user.name "$ADMIN_USER"
-			su -c "cd $INSTALL_DIR/$REPO; GIT_SSL_NO_VERIFY=true; git fetch --all; git reset --hard origin/master" $ADMIN_USER
-		fi
+	# else
+	# 	if [ "$internet_down" -eq "0" ]; then
+	# 		git config --global user.email "$ADMIN_USER@$HOSTNAME"
+	# 		git config --global user.name "$ADMIN_USER"
+	# 		su -c "cd $INSTALL_DIR/$REPO; GIT_SSL_NO_VERIFY=true; git fetch --all; git reset --hard origin/master" $ADMIN_USER
+	# 	fi
 	fi
 }
 
@@ -285,5 +285,5 @@ repo_init
 script_check
 echo_variables
 
-su --session-command="cd \"$INSTALL_DIR/$REPO\"; ./rollout.sh $GEN_DATA_SCALE $EXPLAIN_ANALYZE $RANDOM_DISTRIBUTION $MULTI_USER_COUNT $RUN_COMPILE_TPCDS $RUN_GEN_DATA $RUN_INIT $RUN_DDL $RUN_LOAD $RUN_SQL $RUN_SINGLE_USER_REPORT $RUN_MULTI_USER $RUN_MULTI_USER_REPORT $RUN_SCORE $SINGLE_USER_ITERATIONS" $ADMIN_USER
+su --command="cd \"$INSTALL_DIR/$REPO\"; ./rollout.sh $GEN_DATA_SCALE $EXPLAIN_ANALYZE $RANDOM_DISTRIBUTION $MULTI_USER_COUNT $RUN_COMPILE_TPCDS $RUN_GEN_DATA $RUN_INIT $RUN_DDL $RUN_LOAD $RUN_SQL $RUN_SINGLE_USER_REPORT $RUN_MULTI_USER $RUN_MULTI_USER_REPORT $RUN_SCORE $SINGLE_USER_ITERATIONS" $ADMIN_USER
 
