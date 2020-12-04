@@ -34,16 +34,17 @@ get_gpfdist_port()
 
 source_bashrc()
 {
+	startup_file=~/.bashrc
 	if [ -f ~/.bashrc ]; then
 		# don't fail if an error is happening in the admin's profile
-		source ~/.bashrc || true
+		source ${startup_file} || true
 	fi
-	count=$(grep -v "^#" ~/.bashrc | grep "greenplum_path" | wc -l)
+	count=$(grep -v "^#" ${startup_file} | grep "greenplum_path" | wc -l)
 	if [ "$count" -eq "0" ]; then
 		get_version
 		if [[ "$VERSION" == *"gpdb"* ]]; then
-			echo "$startup_file does not contain greenplum_path.sh"
-			echo "Please update your $startup_file for $ADMIN_USER and try again."
+			echo "${startup_file} does not contain greenplum_path.sh"
+			echo "Please update your ${startup_file} for $ADMIN_USER and try again."
 			exit 1
 		fi
 	fi
@@ -51,7 +52,7 @@ source_bashrc()
 get_version()
 {
 	#need to call source_bashrc first
-	VERSION=$(psql -v ON_ERROR_STOP=1 -t -A -c "SELECT CASE WHEN POSITION ('Greenplum Database 4.3' IN version) > 0 THEN 'gpdb_4_3' WHEN POSITION ('Greenplum Database 5' IN version) > 0 THEN 'gpdb_5' WHEN POSITION ('Greenplum Database 6' IN version) > 0 THEN 'gpdb_6' ELSE 'postgresql' END FROM version();") 
+	VERSION=$(psql -v ON_ERROR_STOP=1 -t -A -c "SELECT CASE WHEN POSITION ('Greenplum Database 4.3' IN version) > 0 THEN 'gpdb_4_3' WHEN POSITION ('Greenplum Database 5' IN version) > 0 THEN 'gpdb_5' WHEN POSITION ('Greenplum Database 6' IN version) > 0 THEN 'gpdb_6' ELSE 'postgresql' END FROM version();")
 	if [[ "$VERSION" == *"gpdb"* ]]; then
 		quicklz_test=$(psql -v ON_ERROR_STOP=1 -t -A -c "SELECT COUNT(*) FROM pg_compression WHERE compname = 'quicklz'")
 		if [ "$quicklz_test" -eq "1" ]; then
