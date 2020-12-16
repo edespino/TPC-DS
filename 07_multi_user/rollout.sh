@@ -21,6 +21,7 @@ fi
 
 PWD=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 source $PWD/../functions.sh
+print_section_header
 source_bashrc
 
 get_psql_count()
