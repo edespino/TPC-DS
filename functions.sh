@@ -35,7 +35,7 @@ get_gpfdist_port()
 source_bashrc()
 {
 	startup_file=~/.bashrc
-	if [ -f ~/.bashrc ]; then
+	if [ -f ${startup_file} ]; then
 		# don't fail if an error is happening in the admin's profile
 		source ${startup_file} || true
 	fi

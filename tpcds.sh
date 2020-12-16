@@ -163,13 +163,13 @@ yum_installs()
 
 	if [ "$YUM_INSTALLED" -gt "0" ]; then
 		if [ "$CURL_INSTALLED" -eq "0" ]; then
-			sudo yum -y install gcc
+			sudo yum -y -q -d1 install gcc
 		fi
 		if [ "$GIT_INSTALLED" -eq "0" ]; then
-			sudo yum -y install git
+			sudo yum -y -q -d1 install git
 		fi
 		if [ "$BC_INSTALLED" -eq "0" ]; then
-			sudo yum -y install bc
+			sudo yum -y -q -d1 install bc
 		fi
 	else
 		if [ "$CURL_INSTALLED" -eq "0" ]; then
