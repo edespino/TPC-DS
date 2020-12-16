@@ -3,7 +3,6 @@ set -e
 
 PWD=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 source $PWD/../functions.sh
-print_section_header
 source_bashrc
 
 step=init

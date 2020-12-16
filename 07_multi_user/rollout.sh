@@ -21,8 +21,10 @@ fi
 
 PWD=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 source $PWD/../functions.sh
-print_section_header
 source_bashrc
+
+step=multi_user
+init_log $step
 
 get_psql_count()
 {
@@ -36,7 +38,6 @@ get_file_count()
 
 get_file_count
 if [ "$file_count" -ne "$MULTI_USER_COUNT" ]; then
-
 	rm -f $PWD/../log/end_testing_*.log
 	rm -f $PWD/../log/testing*.log
 	rm -f $PWD/../log/rollout_testing_*.log
@@ -102,3 +103,5 @@ if [ "$file_count" -ne "$MULTI_USER_COUNT" ]; then
 		exit 1
 	fi
 fi
+
+end_step $step

@@ -78,6 +78,7 @@ init_log()
 
 	logfile=rollout_$1.log
 	rm -f $LOCAL_PWD/log/$logfile
+        print_section_header
 }
 
 start_log()
@@ -124,6 +125,7 @@ end_step()
 {
 	local logfile=end_$1.log
 	touch $LOCAL_PWD/log/$logfile
+        print_section_footer
 }
 
 create_hosts_file()
@@ -140,12 +142,29 @@ create_hosts_file()
 
 print_section_header ()
 {
+    SECONDS=0
 cat <<EOF
 
 ############################################################################
-############################################################################
-SECTION .... : $( basename $PWD)
-TIMESTAMP .. : $(date)
+                                START
+----------------------------------------------------------------------------
+SECTION ....... : $( basename $PWD)
+TIMESTAMP ..... : $(date)
+----------------------------------------------------------------------------
+
+EOF
+}
+
+print_section_footer ()
+{
+cat <<EOF
+
+----------------------------------------------------------------------------
+                               FINISHED
+----------------------------------------------------------------------------
+SECTION ....... : $( basename $PWD)
+TIMESTAMP ..... : $(date)
+ELAPSED TIME .. : $(TZ=UTC0 printf '%(%H:%M:%S)T\n' $SECONDS)
 ############################################################################
 ############################################################################
 
