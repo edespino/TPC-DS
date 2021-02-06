@@ -212,8 +212,8 @@ repo_init()
 			echo ""
 			echo "Creating install dir"
 			echo "-------------------------------------------------------------------------"
-			mkdir $INSTALL_DIR
-			chown $ADMIN_USER $INSTALL_DIR
+			sudo mkdir $INSTALL_DIR
+			sudo chown $ADMIN_USER $INSTALL_DIR
 		fi
 	fi
 
@@ -225,8 +225,8 @@ repo_init()
 			echo ""
 			echo "Creating $REPO directory"
 			echo "-------------------------------------------------------------------------"
-			mkdir $INSTALL_DIR/$REPO
-			chown $ADMIN_USER $INSTALL_DIR/$REPO
+			sudo mkdir -p $INSTALL_DIR/$REPO
+			sudo chown $ADMIN_USER $INSTALL_DIR/$REPO
 			cd $INSTALL_DIR; GIT_SSL_NO_VERIFY=true; git clone --depth=1 $REPO_URL -b centos
 		fi
 	else
