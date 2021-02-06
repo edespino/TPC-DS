@@ -29,12 +29,12 @@ check_variables()
 	fi
 	local count=$(grep "ADMIN_USER=" $MYVAR | wc -l)
 	if [ "$count" -eq "0" ]; then
-		echo "ADMIN_USER=\"centos\"" >> $MYVAR
+		echo "ADMIN_USER=\"gpadmin\"" >> $MYVAR
 		new_variable=$(($new_variable + 1))
 	fi
 	local count=$(grep "INSTALL_DIR=" $MYVAR | wc -l)
 	if [ "$count" -eq "0" ]; then
-		echo "INSTALL_DIR=\"/data\"" >> $MYVAR
+		echo "INSTALL_DIR=\"/data1\"" >> $MYVAR
 		new_variable=$(($new_variable + 1))
 	fi
 	local count=$(grep "EXPLAIN_ANALYZE=" $MYVAR | wc -l)
