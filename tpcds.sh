@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 
-PWD=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
+SCRIPTDIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 
 MYCMD="tpcds.sh"
 MYVAR="tpcds_variables.sh"
@@ -13,8 +13,8 @@ check_variables()
 	new_variable="0"
 
 	### Make sure variables file is available
-	if [ ! -f "$PWD/$MYVAR" ]; then
-		touch $PWD/$MYVAR
+	if [ ! -f "$SCRIPTDIR/$MYVAR" ]; then
+		touch $SCRIPTDIR/$MYVAR
 		new_variable=$(($new_variable + 1))
 	fi
 	local count=$(grep "REPO=" $MYVAR | wc -l)
@@ -246,7 +246,7 @@ script_check()
 	echo "############################################################################"
 	echo ""
 	# Must be executed after the repo has been pulled
-	local d=`diff $PWD/$MYCMD $INSTALL_DIR/$REPO/$MYCMD | wc -l`
+	local d=`diff $SCRIPTDIR/$MYCMD $INSTALL_DIR/$REPO/$MYCMD | wc -l`
 
 	if [ "$d" -eq "0" ]; then
 		echo "$MYCMD script is up to date so continuing to TPC-DS."
@@ -254,7 +254,7 @@ script_check()
 	else
 		echo "$MYCMD script is NOT up to date."
 		echo ""
-		cp $INSTALL_DIR/$REPO/$MYCMD $PWD/$MYCMD
+		cp $INSTALL_DIR/$REPO/$MYCMD $SCRIPTDIR/$MYCMD
 		echo "After this script completes, restart the $MYCMD with this command:"
 		echo "./$MYCMD"
 		exit 1
